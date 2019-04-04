@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="marketModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="marketModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="employee">
           <Key>
             <PropertyRef Name="id" />
@@ -59,6 +59,20 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
+        <Association Name="for_">
+          <End Role="employee" Type="Self.employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="otdels" Type="Self.otdels" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="otdels">
+              <PropertyRef Name="id_name_glav" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="marketModelStoreContainer">
           <EntitySet Name="employee" EntityType="Self.employee" Schema="market" store:Type="Tables" />
           <EntitySet Name="otdels" EntityType="Self.otdels" Schema="market" store:Type="Tables" />
@@ -66,9 +80,12 @@
           <EntitySet Name="product" EntityType="Self.product" Schema="market" store:Type="Tables" />
           <EntitySet Name="purchase" EntityType="Self.purchase" Schema="market" store:Type="Tables" />
           <EntitySet Name="specialization" EntityType="Self.specialization" Schema="market" store:Type="Tables" />
+          <AssociationSet Name="for_" Association="Self.for_">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="otdels" EntitySet="otdels" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="marketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -83,6 +100,7 @@
           <Property Name="id_otdel" Type="Int32" Nullable="false" />
           <Property Name="id_position" Type="Int32" Nullable="false" />
           <Property Name="id_specialization" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="otdels" Relationship="marketModel.for_" FromRole="employee" ToRole="otdel" />
         </EntityType>
         <EntityType Name="otdel">
           <Key>
@@ -91,6 +109,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_name_glav" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="marketModel.for_" FromRole="otdel" ToRole="employee" />
         </EntityType>
         <EntityType Name="position">
           <Key>
@@ -133,7 +152,25 @@
           <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="purchases" EntityType="Self.purchase" />
           <EntitySet Name="specializations" EntityType="Self.specialization" />
+          <AssociationSet Name="for_" Association="marketModel.for_">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="otdel" EntitySet="otdels" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="for_">
+          <End Type="marketModel.employee" Role="employee" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="marketModel.otdel" Role="otdel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="otdel">
+              <PropertyRef Name="id_name_glav" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

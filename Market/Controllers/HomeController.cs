@@ -6,6 +6,7 @@ namespace Market.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

@@ -17,5 +17,7 @@ namespace Market.Models
         public int id { get; set; }
         public string name { get; set; }
         public int id_name_glav { get; set; }
+    
+        public virtual employee employee { get; set; }
     }
 }

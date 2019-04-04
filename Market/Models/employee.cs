@@ -14,6 +14,12 @@ namespace Market.Models
     
     public partial class employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public employee()
+        {
+            this.otdels = new HashSet<otdel>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
@@ -21,5 +27,8 @@ namespace Market.Models
         public int id_otdel { get; set; }
         public int id_position { get; set; }
         public int id_specialization { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<otdel> otdels { get; set; }
     }
 }

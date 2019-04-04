@@ -1,0 +1,19 @@
+﻿.list {
+    display: inline-block;
+    background-color: purple;
+    border-radius: 5px;
+    margin: 5px 5px 5px 5px;
+}
+a {
+    color:white;
+    text-decoration: none;
+    min-width: 300px;
+    min-height: 300px;
+}
+.lol {
+    min-width: 300px;
+    min-height: 300px;
+}
+.list:hover {
+    background: #1D7074;
+}

@@ -5,12 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cfd0aa7fbf434c85bb0d39665984870b" Name="Diagram1">
-        <EntityTypeShape EntityType="marketModel.employee" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.otdel" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.employee" Width="1.5" PointX="0.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.otdel" Width="1.5" PointX="2.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.position" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.product" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.purchase" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.specialization" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="marketModel.for_" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
