@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="marketModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="date_start" Type="date" Nullable="false" />
+          <Property Name="id_otdel" Type="int" Nullable="false" />
+          <Property Name="id_position" Type="int" Nullable="false" />
+          <Property Name="id_specialization" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="otdels">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="id_name_glav" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="id_otdel" Type="int" Nullable="false" />
+          <Property Name="coast" Type="int" Nullable="false" />
+          <Property Name="amount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="purchase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_product" Type="int" Nullable="false" />
+          <Property Name="id_otdel" Type="int" Nullable="false" />
+          <Property Name="data_sale" Type="date" Nullable="false" />
+          <Property Name="id_employee" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="specialization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="marketModelStoreContainer">
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="market" store:Type="Tables" />
+          <EntitySet Name="otdels" EntityType="Self.otdels" Schema="market" store:Type="Tables" />
+          <EntitySet Name="position" EntityType="Self.position" Schema="market" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="market" store:Type="Tables" />
+          <EntitySet Name="purchase" EntityType="Self.purchase" Schema="market" store:Type="Tables" />
+          <EntitySet Name="specialization" EntityType="Self.specialization" Schema="market" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="marketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="date_start" Type="DateTime" Nullable="false" />
+          <Property Name="id_otdel" Type="Int32" Nullable="false" />
+          <Property Name="id_position" Type="Int32" Nullable="false" />
+          <Property Name="id_specialization" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="otdel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_name_glav" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="position">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_otdel" Type="Int32" Nullable="false" />
+          <Property Name="coast" Type="Int32" Nullable="false" />
+          <Property Name="amount" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="purchase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="id_otdel" Type="Int32" Nullable="false" />
+          <Property Name="data_sale" Type="DateTime" Nullable="false" />
+          <Property Name="id_employee" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="specialization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="marketEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="otdels" EntityType="Self.otdel" />
+          <EntitySet Name="positions" EntityType="Self.position" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="purchases" EntityType="Self.purchase" />
+          <EntitySet Name="specializations" EntityType="Self.specialization" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="marketModelStoreContainer" CdmEntityContainer="marketEntities">
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="marketModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="id_otdel" ColumnName="id_otdel" />
+                <ScalarProperty Name="id_position" ColumnName="id_position" />
+                <ScalarProperty Name="id_specialization" ColumnName="id_specialization" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="otdels">
+            <EntityTypeMapping TypeName="marketModel.otdel">
+              <MappingFragment StoreEntitySet="otdels">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_name_glav" ColumnName="id_name_glav" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="positions">
+            <EntityTypeMapping TypeName="marketModel.position">
+              <MappingFragment StoreEntitySet="position">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="marketModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id_otdel" ColumnName="id_otdel" />
+                <ScalarProperty Name="coast" ColumnName="coast" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="purchases">
+            <EntityTypeMapping TypeName="marketModel.purchase">
+              <MappingFragment StoreEntitySet="purchase">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="id_otdel" ColumnName="id_otdel" />
+                <ScalarProperty Name="data_sale" ColumnName="data_sale" />
+                <ScalarProperty Name="id_employee" ColumnName="id_employee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="specializations">
+            <EntityTypeMapping TypeName="marketModel.specialization">
+              <MappingFragment StoreEntitySet="specialization">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
