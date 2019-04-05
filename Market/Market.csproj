@@ -184,6 +184,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\img\box.png" />
+    <Content Include="Content\img\emloye.png" />
+    <Content Include="Content\img\otdel.png" />
+    <Content Include="Content\img\sale.png" />
+    <Content Include="Content\img\svedenia.png" />
+    <Content Include="Content\img\update.png" />
     <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -222,11 +228,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Issue\Index.cshtml" />
+    <Content Include="Views\Update\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Issue\" />
-    <Folder Include="Views\Update\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

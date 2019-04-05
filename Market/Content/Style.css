@@ -10,9 +10,10 @@ a {
     min-width: 300px;
     min-height: 300px;
 }
-.lol {
+.block {
     min-width: 300px;
     min-height: 300px;
+    text-align:center;
 }
 .list:hover {
     background: #1D7074;
