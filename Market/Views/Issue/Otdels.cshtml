@@ -1,0 +1,18 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table style="border:3px;">
+    <caption>Таблица</caption>
+    <tr>
+        <th>№</th>
+        <th>Название</th>
+        <th>Заведующий</th>
+    </tr>
+    @{
+        foreach (var item in ViewBag.Otdels)
+        {
+            <tr> <td> @item.id </td><td>@item.name</td><td>@item.employee.name @item.employee.surname</td></tr>
+                }
+    }
+</table>

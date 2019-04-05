@@ -18,17 +18,23 @@ namespace Market.Models
         public employee()
         {
             this.otdels = new HashSet<otdel>();
+            this.purchases = new HashSet<purchase>();
         }
     
         public int id { get; set; }
         public string name { get; set; }
         public string surname { get; set; }
         public System.DateTime date_start { get; set; }
-        public int id_otdel { get; set; }
-        public int id_position { get; set; }
-        public int id_specialization { get; set; }
+        public Nullable<int> id_otdel { get; set; }
+        public Nullable<int> id_position { get; set; }
+        public Nullable<int> id_specialization { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<otdel> otdels { get; set; }
+        public virtual otdel otdel { get; set; }
+        public virtual specialization specialization { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<purchase> purchases { get; set; }
+        public virtual position position { get; set; }
     }
 }

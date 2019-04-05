@@ -4,14 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cfd0aa7fbf434c85bb0d39665984870b" Name="Diagram1">
-        <EntityTypeShape EntityType="marketModel.employee" Width="1.5" PointX="0.5" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.otdel" Width="1.5" PointX="2.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.position" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.product" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.purchase" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.specialization" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="marketModel.for_" />
+      <Diagram DiagramId="506b297773e14caf9977a14bfa358053" Name="Diagram1">
+        <EntityTypeShape EntityType="marketModel.employee" Width="1.5" PointX="4.875" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.otdel" Width="1.5" PointX="2.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.position" Width="1.5" PointX="5.625" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.product" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.purchase" Width="1.5" PointX="0.625" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.specialization" Width="1.5" PointX="6.875" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="marketModel.for_id__id_name_glav" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.for_id__id_otdels" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.for_otdels_id__id_otdel" />
+        <AssociationConnector Association="marketModel.lol" />
+        <AssociationConnector Association="marketModel.puremp" />
+        <AssociationConnector Association="marketModel.purotd" />
+        <AssociationConnector Association="marketModel.purpro" />
+        <AssociationConnector Association="marketModel.emppos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Market.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,15 @@ namespace Market.Controllers
 {
     public class IssueController : Controller
     {
-        // GET: Issue
+        Entities market = new Entities();
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult Otdels()
+        {
+            ViewBag.Otdels = market.otdels.ToList();
             return View();
         }
     }

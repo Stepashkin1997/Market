@@ -14,10 +14,24 @@ namespace Market.Models
     
     public partial class otdel
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public otdel()
+        {
+            this.employees = new HashSet<employee>();
+            this.products = new HashSet<product>();
+            this.purchases = new HashSet<purchase>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
-        public int id_name_glav { get; set; }
+        public Nullable<int> id_name_glav { get; set; }
     
         public virtual employee employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<employee> employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<product> products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<purchase> purchases { get; set; }
     }
 }

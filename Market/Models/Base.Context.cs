@@ -13,10 +13,10 @@ namespace Market.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class marketEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public marketEntities()
-            : base("name=marketEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     

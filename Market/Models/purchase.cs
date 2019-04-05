@@ -15,9 +15,13 @@ namespace Market.Models
     public partial class purchase
     {
         public int id { get; set; }
-        public int id_product { get; set; }
-        public int id_otdel { get; set; }
+        public Nullable<int> id_product { get; set; }
+        public Nullable<int> id_otdel { get; set; }
         public System.DateTime data_sale { get; set; }
-        public int id_employee { get; set; }
+        public Nullable<int> id_employee { get; set; }
+    
+        public virtual employee employee { get; set; }
+        public virtual otdel otdel { get; set; }
+        public virtual product product { get; set; }
     }
 }

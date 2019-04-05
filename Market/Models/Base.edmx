@@ -13,9 +13,9 @@
           <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="surname" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="date_start" Type="date" Nullable="false" />
-          <Property Name="id_otdel" Type="int" Nullable="false" />
-          <Property Name="id_position" Type="int" Nullable="false" />
-          <Property Name="id_specialization" Type="int" Nullable="false" />
+          <Property Name="id_otdel" Type="int" />
+          <Property Name="id_position" Type="int" />
+          <Property Name="id_specialization" Type="int" />
         </EntityType>
         <EntityType Name="otdels">
           <Key>
@@ -23,7 +23,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="id_name_glav" Type="int" Nullable="false" />
+          <Property Name="id_name_glav" Type="int" />
         </EntityType>
         <EntityType Name="position">
           <Key>
@@ -38,7 +38,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="id_otdel" Type="int" Nullable="false" />
+          <Property Name="id_otdel" Type="int" />
           <Property Name="coast" Type="int" Nullable="false" />
           <Property Name="amount" Type="int" Nullable="false" />
         </EntityType>
@@ -47,10 +47,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_product" Type="int" Nullable="false" />
-          <Property Name="id_otdel" Type="int" Nullable="false" />
+          <Property Name="id_product" Type="int" />
+          <Property Name="id_otdel" Type="int" />
           <Property Name="data_sale" Type="date" Nullable="false" />
-          <Property Name="id_employee" Type="int" Nullable="false" />
+          <Property Name="id_employee" Type="int" />
         </EntityType>
         <EntityType Name="specialization">
           <Key>
@@ -59,10 +59,32 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
-        <Association Name="for_">
-          <End Role="employee" Type="Self.employee" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+        <Association Name="emppos">
+          <End Role="position" Type="Self.position" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="id_position" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="empspe">
+          <End Role="specialization" Type="Self.specialization" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="id_specialization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="for_id-&gt;id_name_glav">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
           <End Role="otdels" Type="Self.otdels" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="employee">
@@ -73,6 +95,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="for_id-&gt;id_otdels">
+          <End Role="otdels" Type="Self.otdels" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otdels">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="id_otdel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="for_otdels_id-&gt;id_otdel">
+          <End Role="otdels" Type="Self.otdels" Multiplicity="0..1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otdels">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_otdel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="puremp">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="id_employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="purotd">
+          <End Role="otdels" Type="Self.otdels" Multiplicity="0..1" />
+          <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otdels">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="id_otdel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="purpro">
+          <End Role="product" Type="Self.product" Multiplicity="0..1" />
+          <End Role="purchase" Type="Self.purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="marketModelStoreContainer">
           <EntitySet Name="employee" EntityType="Self.employee" Schema="market" store:Type="Tables" />
           <EntitySet Name="otdels" EntityType="Self.otdels" Schema="market" store:Type="Tables" />
@@ -80,9 +162,37 @@
           <EntitySet Name="product" EntityType="Self.product" Schema="market" store:Type="Tables" />
           <EntitySet Name="purchase" EntityType="Self.purchase" Schema="market" store:Type="Tables" />
           <EntitySet Name="specialization" EntityType="Self.specialization" Schema="market" store:Type="Tables" />
-          <AssociationSet Name="for_" Association="Self.for_">
+          <AssociationSet Name="emppos" Association="Self.emppos">
+            <End Role="position" EntitySet="position" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="empspe" Association="Self.empspe">
+            <End Role="specialization" EntitySet="specialization" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="for_id-&gt;id_name_glav" Association="Self.for_id-&gt;id_name_glav">
             <End Role="employee" EntitySet="employee" />
             <End Role="otdels" EntitySet="otdels" />
+          </AssociationSet>
+          <AssociationSet Name="for_id-&gt;id_otdels" Association="Self.for_id-&gt;id_otdels">
+            <End Role="otdels" EntitySet="otdels" />
+            <End Role="employee" EntitySet="employee" />
+          </AssociationSet>
+          <AssociationSet Name="for_otdels_id-&gt;id_otdel" Association="Self.for_otdels_id-&gt;id_otdel">
+            <End Role="otdels" EntitySet="otdels" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="puremp" Association="Self.puremp">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="purchase" EntitySet="purchase" />
+          </AssociationSet>
+          <AssociationSet Name="purotd" Association="Self.purotd">
+            <End Role="otdels" EntitySet="otdels" />
+            <End Role="purchase" EntitySet="purchase" />
+          </AssociationSet>
+          <AssociationSet Name="purpro" Association="Self.purpro">
+            <End Role="product" EntitySet="product" />
+            <End Role="purchase" EntitySet="purchase" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -97,10 +207,14 @@
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="date_start" Type="DateTime" Nullable="false" />
-          <Property Name="id_otdel" Type="Int32" Nullable="false" />
-          <Property Name="id_position" Type="Int32" Nullable="false" />
-          <Property Name="id_specialization" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="otdels" Relationship="marketModel.for_" FromRole="employee" ToRole="otdel" />
+          <Property Name="id_otdel" Type="Int32" />
+          <Property Name="id_position" Type="Int32" />
+          <Property Name="id_specialization" Type="Int32" />
+          <NavigationProperty Name="otdels" Relationship="Self.for_id__id_name_glav" FromRole="employee" ToRole="otdels" />
+          <NavigationProperty Name="otdel" Relationship="Self.for_id__id_otdels" FromRole="employee" ToRole="otdels" />
+          <NavigationProperty Name="specialization" Relationship="marketModel.lol" FromRole="employee" ToRole="specialization" />
+          <NavigationProperty Name="purchases" Relationship="marketModel.puremp" FromRole="employee" ToRole="purchase" />
+          <NavigationProperty Name="position" Relationship="marketModel.emppos" FromRole="employee" ToRole="position" />
         </EntityType>
         <EntityType Name="otdel">
           <Key>
@@ -108,8 +222,11 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_name_glav" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="employee" Relationship="marketModel.for_" FromRole="otdel" ToRole="employee" />
+          <Property Name="id_name_glav" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="Self.for_id__id_name_glav" FromRole="otdels" ToRole="employee" />
+          <NavigationProperty Name="employees" Relationship="Self.for_id__id_otdels" FromRole="otdels" ToRole="employee" />
+          <NavigationProperty Name="products" Relationship="marketModel.for_otdels_id__id_otdel" FromRole="otdel" ToRole="product" />
+          <NavigationProperty Name="purchases" Relationship="marketModel.purotd" FromRole="otdel" ToRole="purchase" />
         </EntityType>
         <EntityType Name="position">
           <Key>
@@ -117,6 +234,7 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="marketModel.emppos" FromRole="position" ToRole="employee" />
         </EntityType>
         <EntityType Name="product">
           <Key>
@@ -124,19 +242,24 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="id_otdel" Type="Int32" Nullable="false" />
+          <Property Name="id_otdel" Type="Int32" />
           <Property Name="coast" Type="Int32" Nullable="false" />
           <Property Name="amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="otdel" Relationship="marketModel.for_otdels_id__id_otdel" FromRole="product" ToRole="otdel" />
+          <NavigationProperty Name="purchases" Relationship="marketModel.purpro" FromRole="product" ToRole="purchase" />
         </EntityType>
         <EntityType Name="purchase">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_product" Type="Int32" Nullable="false" />
-          <Property Name="id_otdel" Type="Int32" Nullable="false" />
+          <Property Name="id_product" Type="Int32" />
+          <Property Name="id_otdel" Type="Int32" />
           <Property Name="data_sale" Type="DateTime" Nullable="false" />
-          <Property Name="id_employee" Type="Int32" Nullable="false" />
+          <Property Name="id_employee" Type="Int32" />
+          <NavigationProperty Name="employee" Relationship="marketModel.puremp" FromRole="purchase" ToRole="employee" />
+          <NavigationProperty Name="otdel" Relationship="marketModel.purotd" FromRole="purchase" ToRole="otdel" />
+          <NavigationProperty Name="product" Relationship="marketModel.purpro" FromRole="purchase" ToRole="product" />
         </EntityType>
         <EntityType Name="specialization">
           <Key>
@@ -144,30 +267,143 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="employees" Relationship="marketModel.lol" FromRole="specialization" ToRole="employee" />
         </EntityType>
-        <EntityContainer Name="marketEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="for_id__id_name_glav">
+          <End Role="employee" Type="Self.employee" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="otdels" Type="Self.otdel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="otdels">
+              <PropertyRef Name="id_name_glav" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="for_id__id_otdels">
+          <End Role="otdels" Type="Self.otdel" Multiplicity="0..1" />
+          <End Role="employee" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otdels">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="id_otdel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="employees" EntityType="Self.employee" />
           <EntitySet Name="otdels" EntityType="Self.otdel" />
           <EntitySet Name="positions" EntityType="Self.position" />
           <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="purchases" EntityType="Self.purchase" />
           <EntitySet Name="specializations" EntityType="Self.specialization" />
-          <AssociationSet Name="for_" Association="marketModel.for_">
+          <AssociationSet Name="for_id__id_name_glav" Association="Self.for_id__id_name_glav">
             <End Role="employee" EntitySet="employees" />
+            <End Role="otdels" EntitySet="otdels" />
+          </AssociationSet>
+          <AssociationSet Name="for_id__id_otdels" Association="Self.for_id__id_otdels">
+            <End Role="otdels" EntitySet="otdels" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="for_otdels_id__id_otdel" Association="marketModel.for_otdels_id__id_otdel">
             <End Role="otdel" EntitySet="otdels" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="lol" Association="marketModel.lol">
+            <End Role="specialization" EntitySet="specializations" />
+            <End Role="employee" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="puremp" Association="marketModel.puremp">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="purchase" EntitySet="purchases" />
+          </AssociationSet>
+          <AssociationSet Name="purotd" Association="marketModel.purotd">
+            <End Role="otdel" EntitySet="otdels" />
+            <End Role="purchase" EntitySet="purchases" />
+          </AssociationSet>
+          <AssociationSet Name="purpro" Association="marketModel.purpro">
+            <End Role="product" EntitySet="products" />
+            <End Role="purchase" EntitySet="purchases" />
+          </AssociationSet>
+          <AssociationSet Name="emppos" Association="marketModel.emppos">
+            <End Role="position" EntitySet="positions" />
+            <End Role="employee" EntitySet="employees" />
           </AssociationSet>
         </EntityContainer>
-        <Association Name="for_">
-          <End Type="marketModel.employee" Role="employee" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="marketModel.otdel" Role="otdel" Multiplicity="*" />
+        <Association Name="for_otdels_id__id_otdel">
+          <End Type="marketModel.otdel" Role="otdel" Multiplicity="0..1" />
+          <End Type="marketModel.product" Role="product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otdel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="id_otdel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="lol">
+          <End Type="marketModel.specialization" Role="specialization" Multiplicity="0..1" />
+          <End Type="marketModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="specialization">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="id_specialization" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="puremp">
+          <End Type="marketModel.employee" Role="employee" Multiplicity="0..1" />
+          <End Type="marketModel.purchase" Role="purchase" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="employee">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="otdel">
-              <PropertyRef Name="id_name_glav" />
+            <Dependent Role="purchase">
+              <PropertyRef Name="id_employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="purotd">
+          <End Type="marketModel.otdel" Role="otdel" Multiplicity="0..1" />
+          <End Type="marketModel.purchase" Role="purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="otdel">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="id_otdel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="purpro">
+          <End Type="marketModel.product" Role="product" Multiplicity="0..1" />
+          <End Type="marketModel.purchase" Role="purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="purchase">
+              <PropertyRef Name="id_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="emppos">
+          <End Type="marketModel.position" Role="position" Multiplicity="0..1" />
+          <End Type="marketModel.employee" Role="employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="position">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="employee">
+              <PropertyRef Name="id_position" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -176,7 +412,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="marketModelStoreContainer" CdmEntityContainer="marketEntities">
+        <EntityContainerMapping StorageEntityContainer="marketModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="employees">
             <EntityTypeMapping TypeName="marketModel.employee">
               <MappingFragment StoreEntitySet="employee">
