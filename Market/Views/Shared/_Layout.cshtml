@@ -3,13 +3,22 @@
 <head>
     <meta charset="utf-8" />
     <link href="~/Content/Style.css" rel="stylesheet">
+    @RenderSection("Scripts", false)
     <title>Market</title>
 </head>
 <body>
-    <a href="/Home/Index">
-        <img src="~/Content/img/home.png" style="position:absolute;" />
-    </a>
-    <div style="margin-left:auto; margin-right:auto; width:700px;">
+    <div style="margin-left:auto; margin-right:auto; width:700px; text-align:center;">
+        <a href="/Home/Index" style="position:absolute; top:5px; right:5px;">
+            <img src="~/Content/img/home.png" title="На начальную страницу" />
+        </a>
+        @{
+            if (ViewBag.Back != null)
+            {
+                <a href="@ViewBag.Back" style="position:absolute; top:5px; left:5px;">
+                    <img src="~/Content/img/back.png" title="Назад" />
+                </a>
+            }
+        }
         @RenderBody()
     </div>
 </body>

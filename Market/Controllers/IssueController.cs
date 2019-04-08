@@ -9,28 +9,33 @@ namespace Market.Controllers
         private Entities market = new Entities();
         public ActionResult Index()
         {
+            ViewBag.Back = "/Home/Index";
             return View();
         }
 
         public ActionResult Otdels()
         {
+            ViewBag.Back = "/Issue/Index";
             ViewBag.Otdels = market.otdels.ToList();
             return View();
         }
 
         public ActionResult Employee()
         {
+            ViewBag.Back = "/Issue/Index";
             ViewBag.Employee = market.employees.ToList();
             return View();
         }
 
         public ActionResult Goods()
         {
+            ViewBag.Back = "/Issue/Index";
             ViewBag.Goods = market.products.ToList();
             return View();
         }
         public ActionResult Purchases()
         {
+            ViewBag.Back = "/Issue/Index";
             ViewBag.Purchases = market.purchases.ToList();
             return View();
         }

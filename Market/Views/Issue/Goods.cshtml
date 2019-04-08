@@ -1,8 +1,26 @@
-﻿
-@{
-    ViewBag.Title = "Goods";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Goods</h2>
+<table style="border:3px;">
+    <caption><h1>Таблица товаров</h1></caption>
+    <tr>
+        <th>№</th>
+        <th>Name</th>
+        <th>Otdel</th>
+        <th>Coast</th>
+        <th>Amount</th>
+    </tr>
+    @{
+        foreach (var item in ViewBag.Goods)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.name</td>
+                <td>@item.otdel.name</td>
+                <td>@item.coast</td>
+                <td>@item.amount</td>
+            </tr>
+        }
+    }
+</table>
 

@@ -1,8 +1,33 @@
-﻿
-@{
-    ViewBag.Title = "Purchases";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/script.js"></script>
+}
+<table>
+    <caption><h1>Таблица покупок</h1></caption>
+    <tr>
+        <th>№</th>
+        <th>Product</th>
+        <th>Data sale</th>
+        <th>Coast</th>
+        <th>Employee</th>
+    </tr>
+    @{
+        foreach (var item in ViewBag.Purchases)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.product.name</td>
+                <td>@item.data_sale</td>
+                <td>@item.product.coast</td>
+                <td>@item.employee.name @item.employee.surname</td>
+            </tr>
+        }
+    }
+</table>
 
-<h2>Purchases</h2>
+
 
