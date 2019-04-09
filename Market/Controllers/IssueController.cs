@@ -37,6 +37,8 @@ namespace Market.Controllers
         {
             ViewBag.Back = "/Issue/Index";
             ViewBag.Purchases = market.purchases.ToList();
+            ViewBag.Otdels = market.otdels.ToList();
+            ViewBag.Goods = market.products.ToList();
             return View();
         }
     }

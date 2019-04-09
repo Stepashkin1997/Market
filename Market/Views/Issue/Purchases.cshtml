@@ -4,7 +4,7 @@
 @section Scripts
 {
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/script.js"></script>
+    <script src="~/Scripts/Script.js"></script>
 }
 <table>
     <caption><h1>Таблица покупок</h1></caption>
@@ -28,6 +28,53 @@
         }
     }
 </table>
-
+<form action="/" method="post" style="width:200px; margin-left:auto; margin-right:auto;">
+    <ul>
+        <h3>По отделам</h3>
+        <li>
+            <select name="otdel" id="otdel" class="select">
+                @{
+                    foreach (var item in ViewBag.Otdels)
+                    {
+                        <option value="@item.name">@item.name</option>
+                    }
+                }
+            </select>
+        </li>
+        <h3>По продуктам</h3>
+        <li>
+            <select name="product" id="product" class="select">
+                @{
+                    foreach (var item in ViewBag.Goods)
+                    {
+                        <option value="@item.name">@item.name</option>
+                    }
+                }
+            </select>
+        </li>
+        <h3>По персоналу</h3>
+        <li>
+            <select name="employee" id="employee" class="select">
+                <option value="value">text</option>
+            </select>
+        </li>
+        <h3>По дате</h3>
+        <li>
+            <ul>
+                <h5>От</h5>
+                <li class="select">
+                    <input type="date" name="calendar" value="2019-06-01"
+                           max="2050-01-01" min="2010-01-01" class="select" />
+                </li>
+                <h5>До</h5>
+                <li class="select">
+                    <input type="date" name="calendar" value="2019-06-01"
+                           max="2050-01-01" min="2010-01-01" class="select" />
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <input type="submit" value="Отфильтровать" class="select" />
+</form>
 
 

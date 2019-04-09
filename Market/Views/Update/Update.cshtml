@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/Script.js"></script>
+}
+<select name="update" id="update">
+    <option value="otdel">otdel</option>
+</select>
+<button id="ok">Ok</button>
+<table>
+    @*<caption><h1>Таблица Сотрудников</h1></caption>
+        <tr>
+            <th>№</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Date start</th>
+            <th>Otdel</th>
+            <th>Position</th>
+            <th>Specialization</th>
+        </tr>
+        @{
+            foreach (var item in ViewBag.Employee)
+            {
+                <tr>
+                    <td>@item.id</td>
+                    <td>@item.name</td>
+                    <td>@item.surname</td>
+                    <td>@item.date_start</td>
+                    <td>@item.otdel.name</td>
+                    <td>@item.position.name</td>
+                    <td>@item.specialization.name</td>
+                </tr>
+            }
+        }*@
+</table>
+
