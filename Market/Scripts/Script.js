@@ -6,9 +6,7 @@
             type: "POST", 
             dataType: "text", 
             data: "table=" + a,
-            success: function (response) {
-                alert("Right");
-            },
+            success: onAjaxSuccess,
             error: function (response) { 
                 alert("Server is fall");
             }
@@ -16,15 +14,9 @@
     });
 });
 
-//function onAjaxSuccess(data) {
-//    $("#city").empty();
-//    data = jQuery.parseJSON(data);
-//    $("#city").append("<option value='All'>All</option>");
-//    for (var i = 0; i < data.length; i++) {
-//        $("#city").append("<option value=" + data[i].Name + ">" + data[i].Name + "</option>");
-//    }
-//    1
-//}
+function onAjaxSuccess(data) {
+    data = jQuery.parseJSON(data);
+}
 
 
 //$(function editEntry() {

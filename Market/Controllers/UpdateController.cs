@@ -1,9 +1,6 @@
 ﻿using Market.Models;
-using System;
-using System.Data.Common;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Infrastructure;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Market.Controllers
 {
@@ -23,14 +20,34 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public void Select(string table)
+        public JsonResult Select(string table)
         {
-            Type type = Type.ReflectionOnlyGetType(table,true,false);
-            var a = (market as IObjectContextAdapter).ObjectContext.CreateObjectSet<otdel>().EntitySet.Name;
-            if (table == market.employees.GetType().ToString()) {
-                int i = 1;
+            IQueryable query =null;
+            switch (table)
+            {
+                case "otdel":
+                    query = market.products.Select(a => a.name);
+                    break;
+                case "product":
+                    query = market.products.Select(a => a.name);
+                    break;
+                case "employee":
+                    query = market.products.Select(a => a.name);
+                    break;
+                case "position":
+                    query = market.products.Select(a => a.name);
+                    break;
+                case "purchase":
+                    query = market.products.Select(a => a.name);
+                    break;
+                case "specialization":
+                    query = market.products.Select(a => a.name);
+                    break;
+                default:
+                    query = market.products.Select(a => a.name);
+                    break;
             }
-            //return Json();
+            return Json(query);
         }
     }
 }
