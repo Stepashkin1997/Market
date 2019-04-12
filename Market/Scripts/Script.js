@@ -15,7 +15,19 @@
 });
 
 function onAjaxSuccess(data) {
+    $("#table").empty();
     data = jQuery.parseJSON(data);
+    $("#table").append("<caption><h1>Таблица Сотрудников</h1></caption>");
+    for (var key in data[0]) {
+        $("#table").append("<th>" + key + "</th>");
+    }
+    for (var i = 0; i < data.length; i++) {
+        $("#table").append("<tr>");
+        for (var key in data[i]) {
+            $("#table").append("<td>" + (data[i])[key]+"</td>");
+        }
+        $("#table").append("</tr>");
+    }
 }
 
 
