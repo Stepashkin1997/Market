@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    $('button').bind('click',function () {
+    $('button').bind('click', function () {
+        //console.log(location.pathname);
         var a = $("select#update").val();
         $.ajax({
             url: "/Update/Select/",  
@@ -8,7 +9,7 @@
             data: "table=" + a,
             success: onAjaxSuccess,
             error: function (response) { 
-                alert("Server is fall");
+                alert("Server is fallen");
             }
         });
     });
@@ -17,7 +18,7 @@
 function onAjaxSuccess(data) {
     $("#table").empty();
     data = jQuery.parseJSON(data);
-    $("#table").append("<caption><h1>Таблица Сотрудников</h1></caption>");
+    $("#table").append("<caption><h1>" + $("select option:selected").html()+"</h1></caption>");
     for (var key in data[0]) {
         $("#table").append("<th>" + key + "</th>");
     }

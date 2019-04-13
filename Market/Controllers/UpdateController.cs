@@ -44,9 +44,6 @@ namespace Market.Controllers
                 case "specialization":
                     query = market.specializations.Select(a => new { a.id,a.name });
                     break;
-                default:
-                    query = market.products.Select(a => new { a.id,a.name, otdel=a.otdel.name,a.coast,a.amount });
-                    break;
             }
             return Json(query);
         }
