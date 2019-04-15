@@ -7,6 +7,7 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/Script.js"></script>
 }
+<div style="text-align:center; 0margin: 0 auto;">
     <h1>Выбор таблицы</h1>
     <select name="update" id="update">
         <option value="employee">Таблица сотрудников</option>
@@ -16,7 +17,12 @@
         <option value="purchase">Таблица покупок</option>
         <option value="specialization">Таблица специализации</option>
     </select>
-<button id="ok">Ok</button>
-<table id="table">
-</table>
+    <button id="ok">Ok</button>
+</div>
+<form action="/Update/Update" method="post" id="myForm">
+    <table id="table"></table>
+    <input type="hidden" name="table" id="confirm" />
+    @*<button class="select">Confirm</button>*@
+    <input type="submit" value="Confirm" class="select" />
+</form>
 
