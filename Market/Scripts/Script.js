@@ -1,6 +1,6 @@
-﻿$(document).ready(function () {
+﻿var commands="";
+$(document).ready(function () {
     $('#ok').bind('click', function () {
-        //console.log(location.pathname);
         var a = $("select#update").val();
         $.ajax({
             url: "/Update/Select/",
@@ -14,23 +14,17 @@
         });
     });
 
-    //$('.select').bind('click', function () {
-    //    var formData = JSON.stringify($("#myForm").serializeArray());
-    //    var a = 1;
-    //    $.ajax({
-    //        url: "/Update/Update/",
-    //        type: "POST",
-    //        contentType: "application/json; charset=utf-8",
-    //        dataType: "JSON",
-    //        data: formData,
-    //        success: function (response) {
-    //            alert("Done");
-    //        },
-    //        error: function (response) {
-    //            alert("Server is fallen");
-    //        }
-    //    });
-    //});
+    $('#confirm').bind('click', function () {
+        $.ajax({
+            url: "/Update/Change/",
+            type: "POST",
+            dataType: "text",
+            data: { "commands": commands },
+            error: function (response) {
+                alert("Server is fallen");
+            }
+        });
+    });
 
     $('#table').on("click", "td", function (e) {
 
@@ -45,6 +39,8 @@
         $(this).find('input').focus();
         $(this).find('input').blur(function (e) {
             if (val != $(this).val()) {
+                var a = $(this).parent().parent().attr('id');
+                commands += "UPDATE " + $("select#update").val() + " SET " + $(this).attr('id') + "='" + $(this).val() + "' WHERE id=" + $(this).parent().parent().attr('id') + "; ";
                 $(this).attr('readonly', true).removeAttr("id");
             }
             else {
@@ -60,13 +56,21 @@ function onAjaxSuccess(data) {
     $("#table").append("<caption><h1>" + $("select option:selected").html() + "</h1></caption>");
     $("#table").append("<tr id='title'>");
     for (var key in data[0]) {
+        if (key == "id") {
+            continue;
+        }
         $("#title").append("<th>" + key + "</th>");
     }
     for (var i = 0; i < data.length; i++) {
         $("#table").append("<tr id='" + data[i].id + "'>");
 
         for (var key in data[i]) {
-            $("#" + data[i].id + "").append("<td id='" + key + "'>" + (data[i])[key] + "</td>");
+            if (key == "id") {
+                $("#" + data[i].id + "").append("<input type = 'hidden' value='" + (data[i])[key] + "'/>");
+            }
+            else {
+                $("#" + data[i].id + "").append("<td id='" + key + "'>" + (data[i])[key] + "</td>");
+            }
         }
     }
     $("#table").append("<tr id='bottom'>");

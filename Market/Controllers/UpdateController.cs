@@ -1,5 +1,6 @@
 ﻿using Market.Models;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 
 namespace Market.Controllers
@@ -21,28 +22,12 @@ namespace Market.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(string table)
+        public void Change(string commands)
         {
-            IQueryable query = null;
-            var a = Request.Form;
-            switch (table)
+            if (commands != null)
             {
-                case "otdel":
-                    
-                    break;
-                case "product":
-                    break;
-                case "employee":
-                     break;
-                case "position":
-                    break;
-                case "purchase":
-                    break;
-                case "specialization":
-                     break;
+                market.Database.ExecuteSqlCommand(@commands);
             }
-            ViewBag.Back = "/Update/Index";
-            return View();
         }
 
         [HttpPost]
