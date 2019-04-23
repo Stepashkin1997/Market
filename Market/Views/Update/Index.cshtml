@@ -1,23 +1,25 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 style="text-align:center;">Cредства ввода и обновления данных</h1>
-<ul style="margin-left:auto; margin-right:auto; width:700px; text-align:center;">
-    <li class="list">
-        <a href="/Update/Update">
-            <div class="block">
-                <img src="~/Content/img/upd.png" title="Обновление" class="img" />
-                <div>Обновление данных</div>
-            </div>
-        </a>
-    </li>
-    <li class="list">
-        <a href="/Update/Update">
-            <div class="block">
-                <img src="~/Content/img/enter.png" title="Ввод данных" class="img" />
-                <div>Ввод данных</div>
-            </div>
-        </a>
-    </li>
-</ul>
+@section Scripts
+{
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/Script.js"></script>
+}
+<div style="text-align:center; 0margin: 0 auto;">
+    <h1>Выбор таблицы</h1>
+    <select name="update" id="update">
+        <option value="employee">Таблица сотрудников</option>
+        <option value="otdel">Таблица отделов</option>
+        <option value="position">Таблица должностей</option>
+        <option value="product">Таблица продуктов</option>
+        <option value="purchase">Таблица покупок</option>
+        <option value="specialization">Таблица специализации</option>
+    </select>
+    <button id="ok">Ok</button>
+</div>
+<div id="myForm">
+    <table id="table"></table>
+    <div id="add"></div>
+    <button class="select" id="confirm">Confirm</button>
+</div>

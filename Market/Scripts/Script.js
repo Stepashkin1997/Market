@@ -73,6 +73,7 @@ function onAjaxSuccess(data) {
             }
         }
     }
+    $("#add").append("<img src='/Content/img/plus.png' id='plus'>");
     $("#table").append("<tr id='bottom'>");
     $("#confirm").attr('value', $("select option:selected").val());
 }

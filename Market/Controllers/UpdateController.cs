@@ -1,6 +1,5 @@
 ﻿using Market.Models;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 
 namespace Market.Controllers
@@ -8,16 +7,9 @@ namespace Market.Controllers
     public class UpdateController : Controller
     {
         private Entities market = new Entities();
-        private int[,] a = new int[5, 4];
         public ActionResult Index()
         {
             ViewBag.Back = "/Home/Index";
-            return View();
-        }
-        [HttpGet]
-        public ActionResult Update()
-        {
-            ViewBag.Back = "/Update/Index";
             return View();
         }
 
