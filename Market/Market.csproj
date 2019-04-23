@@ -189,6 +189,7 @@
     <Content Include="Content\img\emloye.png" />
     <Content Include="Content\img\enter.png" />
     <Content Include="Content\img\home.png" />
+    <Content Include="Content\img\minus.png" />
     <Content Include="Content\img\otdel.png" />
     <Content Include="Content\img\plus.png" />
     <Content Include="Content\img\sale.png" />

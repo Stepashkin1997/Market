@@ -28,7 +28,7 @@ li a {
 table {
     border-collapse: collapse; 
     border: 2px solid grey; 
-    text-align: left;
+    text-align: center;
     margin: 0 auto;
 }
 th {
@@ -56,4 +56,9 @@ form {
     border: 2px solid grey;
     border-radius:2px;
     margin-top:5px;
+}
+#add {
+    padding-top:5px;
+    margin: 0 auto;
+    width: 18px;
 }

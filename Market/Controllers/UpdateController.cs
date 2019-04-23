@@ -25,29 +25,30 @@ namespace Market.Controllers
         [HttpPost]
         public JsonResult Select(string table)
         {
-            IQueryable query = null;
             switch (table)
             {
                 case "otdel":
-                    query = market.otdels.Select(a => new { a.id, a.name, employee = a.employee.name }).OrderBy(a => a.id);
-                    break;
+
+                    var otdel = market.otdels.ToList().Select(a => new { a.id, a.name, employee = a.employee.name }).OrderBy(a => a.id).ToList();
+                    return Json(otdel);
                 case "product":
-                    query = market.products.Select(a => new { a.id, a.name, otdel = a.otdel.name, a.coast, a.amount }).OrderBy(a => a.id);
-                    break;
+                    var product = market.products.ToList().Select(a => new { a.id, a.name, otdel = a.otdel.name, a.coast, a.amount }).OrderBy(a => a.id);
+                    return Json(product);
                 case "employee":
-                    query = market.employees.Select(a => new { a.id, a.name, a.surname, a.date_start, otdel = a.otdel.name, position = a.position.name, specialization = a.specialization.name }).OrderBy(a => a.id);
-                    break;
+                    var employee = market.employees.ToList().Select(a => new { a.id, a.name, a.surname, date_start = a.date_start.ToShortDateString(), otdel = a.otdel.name, position = a.position.name, specialization = a.specialization.name }).OrderBy(a => a.id);
+                    return Json(employee);
                 case "position":
-                    query = market.positions.Select(a => new { a.id, a.name }).OrderBy(a => a.id);
-                    break;
+                    var position = market.positions.ToList().Select(a => new { a.id, a.name }).OrderBy(a => a.id);
+                    return Json(position);
                 case "purchase":
-                    query = market.purchases.Select(a => new { a.id, a.product.name, otdel = a.otdel.name, a.data_sale, employee = a.employee.name }).OrderBy(a => a.id);
-                    break;
+                    var purchase = market.purchases.ToList().Select(a => new { a.id, a.product.name, otdel = a.otdel.name, data_sale = a.data_sale.ToShortDateString(), employee = a.employee.name }).OrderBy(a => a.id);
+                    return Json(purchase);
                 case "specialization":
-                    query = market.specializations.Select(a => new { a.id, a.name }).OrderBy(a => a.id);
-                    break;
+                    var specialization = market.specializations.ToList().Select(a => new { a.id, a.name }).OrderBy(a => a.id);
+                    return Json(specialization);
+                default:
+                    return Json("");
             }
-            return Json(query);
         }
     }
 }
