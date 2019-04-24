@@ -147,7 +147,40 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Base.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Base.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Base.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Base.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\employee.cs">
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Search.cs" />
+    <Compile Include="Models\otdel.cs">
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\position.cs">
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\product.cs">
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\purchase.cs">
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\specialization.cs">
+      <DependentUpon>Base.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,8 +199,25 @@
     <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <EntityDeploy Include="Models\Base.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Base.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Base.edmx.diagram">
+      <DependentUpon>Base.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Models\Base.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Base.edmx</DependentUpon>
+      <LastGenOutput>Base.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Base.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Base.edmx</DependentUpon>
+      <LastGenOutput>Base.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Script.js" />

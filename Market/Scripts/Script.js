@@ -1,7 +1,6 @@
-﻿var commands = new Map();
+﻿var commands = "";
 var length;
 var table;
-var lmap = commands.size;
 $(document).ready(function () {
     $('#ok').bind('click', function () {
         var a = $("select#update").val();
@@ -18,31 +17,24 @@ $(document).ready(function () {
     });
 
     $('#table').on("click", ".delete", function () {
-        $(this).attr('map', commands.size);
-        commands.set(lmap++, "DELETE FROM " + $("select#update").val() + " WHERE id=" + $(this).parent().parent().attr('id') + "; ")
+        commands += "DELETE FROM " + $("select#update").val() + " WHERE id=" + $(this).parent().parent().attr('id') + "; ";
         $(this).parent().parent().children("td").css('background-color', 'blue');
         $(this).attr('src', '/Content/img/plus.png');
-        $(this).attr('class', 'recover');
+        $(this).attr('class','recover');
     });
 
     $('#table').on("click", ".recover", function () {
         $(this).parent().parent().children("td").css("background-color", "");
         $(this).attr('src', '/Content/img/minus.png');
         $(this).attr('class', 'delete');
-        commands.delete(Number($(this).attr('map')));
     });
 
     $('#confirm').bind('click', function () {
-        var com = "";
-        commands.forEach(function (value) {
-            com += value;
-        });
         $.ajax({
             url: "/Update/Change/",
             type: "POST",
-            data: {
-                "commands": com
-            },
+            dataType: "text",
+            data: { "commands": commands },
             error: function (response) {
                 alert("Server is fallen");
             }
@@ -75,8 +67,7 @@ $(document).ready(function () {
         $(this).find('input').blur(function (e) {
             if (val != $(this).val()) {
                 var a = $(this).parent().parent().attr('id');
-                $(this).attr('map', commands.size);
-                commands.set(lmap++, "UPDATE " + $("select#update").val() + " SET " + $(this).attr('id') + "='" + $(this).val() + "' WHERE id=" + $(this).parent().parent().attr('id') + "; ")
+                commands += "UPDATE " + $("select#update").val() + " SET " + $(this).attr('id') + "='" + $(this).val() + "' WHERE id=" + $(this).parent().parent().attr('id') + "; ";
                 $(this).attr('readonly', true).removeAttr("id");
             }
             else {
