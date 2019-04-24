@@ -2,6 +2,7 @@
 var length;
 var table;
 var lmap = commands.size;
+var lrow = 0;
 $(document).ready(function () {
     $('#ok').bind('click', function () {
         var a = $("select#update").val();
@@ -18,11 +19,16 @@ $(document).ready(function () {
     });
 
     $('#table').on("click", ".delete", function () {
-        $(this).attr('map', commands.size);
-        commands.set(lmap++, "DELETE FROM " + $("select#update").val() + " WHERE id=" + $(this).parent().parent().attr('id') + "; ")
-        $(this).parent().parent().children("td").css('background-color', 'blue');
-        $(this).attr('src', '/Content/img/plus.png');
-        $(this).attr('class', 'recover');
+        if ($(this).parent().parent().attr('class') == 'add') {
+            $(this).parent().parent().remove();
+        }
+        else {
+            $(this).attr('map', commands.size);
+            commands.set(lmap++, "DELETE FROM " + $("select#update").val() + " WHERE id=" + $(this).parent().parent().attr('id') + "; ")
+            $(this).parent().parent().children("td").css('background-color', 'blue');
+            $(this).attr('src', '/Content/img/plus.png');
+            $(this).attr('class', 'recover');
+        }
     });
 
     $('#table').on("click", ".recover", function () {
@@ -33,7 +39,32 @@ $(document).ready(function () {
     });
 
     $('#confirm').bind('click', function () {
-        var com = "";
+        var b = false;
+        $('#table').children('.add').each(function () {
+            var params = "";
+            var values = "";
+            var i = 0;
+            $(this).children('td').each(function () {
+                i++;
+                if (i == lrow) {
+                    params += $(this).attr('id');
+                    values += "'" + $(this).children('input').val() + "'";
+                    if ($(this).children('input').val() == null) {
+                        alert("Заполните ячейки полностью!");
+                        b = true;
+                        return;
+                    }
+                }
+                else {
+                    params += $(this).attr('id') + ",";
+                    values += "'" + $(this).children('input').val() + "',";
+                }
+            })
+            commands.set(lmap++, "INSERT INTO " + $("select#update").val() + "(" + params + ")" + " VALUES (" + values + "); ");
+        });
+        if (b)
+            return;
+        var com;
         commands.forEach(function (value) {
             com += value;
         });
@@ -50,13 +81,13 @@ $(document).ready(function () {
     });
 
     $('#add').bind('click', function () {
-        $("#table").append("<tr id='" + length + "'>");
+        $("#table").append("<tr class='add' id='" + length + "'>");
         for (var key in table[0]) {
             if (key == "id") {
                 continue;
             }
             else {
-                $("#" + length + "").append("<td id='" + key + "'>...</td>");
+                $("#" + length + "").append("<td id='" + key + "'></td>");
             }
         }
         $("#" + length + "").append("<th><img src='/Content/img/minus.png' class='delete'/></th>");
@@ -67,12 +98,12 @@ $(document).ready(function () {
     $('#table').on("click", "td", function (e) {
 
         var t = e.target || e.srcElement;
-
-
         var val = $(this).text();
         $(this).html("<input type='text' value='" + val + "' name='" + $(this).attr('id') + "' id='" + $(this).attr('id') + "'/>");
         $(this).find('input').focus();
         $(this).find('input').blur(function (e) {
+            if ($(this).parent().parent().attr('class') == 'add')
+                return;
             if (val != $(this).val()) {
                 var a = $(this).parent().parent().attr('id');
                 $(this).attr('map', commands.size);
@@ -97,6 +128,7 @@ function onAjaxSuccess(data) {
         if (key == "id") {
             continue;
         }
+        lrow++;
         $("#title").append("<th>" + key + "</th>");
     }
     $("#title").append("<th>delete</th>");
@@ -117,6 +149,5 @@ function onAjaxSuccess(data) {
     $("#add").append("<img src='/Content/img/plus.png' id='plus'>");
     $("#add").css('cursor', ' pointer');
     $(".delete").css('cursor', ' pointer');
-    $("#confirm").attr('value', $("select option:selected").val());
 }
 
