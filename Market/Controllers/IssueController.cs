@@ -6,7 +6,7 @@ namespace Market.Controllers
 {
     public class IssueController : Controller
     {
-        private Entities market = new Entities();
+        private marketEntities1 market = new marketEntities1();
         public ActionResult Index()
         {
             ViewBag.Back = "/Home/Index";
