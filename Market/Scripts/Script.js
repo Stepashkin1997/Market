@@ -96,52 +96,24 @@ $(document).ready(function () {
     });
 
     $('#table').on("click", "td", function (e) {
-        var val;
-        var cmap;
-        var a = $(this).width();
+
         var t = e.target || e.srcElement;
-        if (t.tagName == "INPUT") {
-            val = t.value;
-            cmap = $(this).find('input').attr('map');
-        }
-        else {
-            val = $(this).text();
-            cmap = commands.size;
-            $(this).html("<input type='text' name='" + $(this).attr('id') + "' id='" + $(this).attr('id') + "'/>");
-            $(this).children('input').blur(function (e) {
-                if ($(this).parent().parent().attr('class') == 'add')
-                    return;
-                var i = $(this).parent().parent().attr('id') - 1;
-                var key = $(this).attr('id');
-                $(this).attr('map', commands.size);
-                var name = $(this).val();
-                var tname = table[i][key];
-                if (name != tname) {
-                    var a = $(this).parent().parent().attr('id');
-                    commands.set(lmap++, "UPDATE " + $("select#update").val() + " SET " + $(this).attr('id') + "='" + $(this).val() + "' WHERE id=" + $(this).parent().parent().attr('id') + "; ")
-                    //$(this).removeAttr("id");
-                    var thval = $(this).val();
-                    if (thval != val) {
-                        var n = Number($(this).attr('map'));
-                        commands.delete(n);
-                        commands.set(n, "UPDATE " + $("select#update").val() + " SET " + $(this).attr('id') + "='" + $(this).val() + "' WHERE id=" + $(this).parent().parent().attr('id') + "; ")
-                    }
-                }
-                else {
-                    var n = Number($(this).attr('map'));
-                    commands.delete(Number($(this).attr('map')));
-                    $(this).removeAttr('map');
-                    $(this).parent().html($(this).val());
-                }
-            });
-        }
-        $(this).find('input').attr('value', val);
-        $(this).find('input').attr('map', cmap);
-        $(this).find('input').css('width', a);
-        $(this).find('input').css('border', 'none');
-        $(this).find('input').css('outline', 'none');
-        $(this).find('input').css('text-decoration', 'none');
+        var val = $(this).text();
+        $(this).html("<input type='text' value='" + val + "' name='" + $(this).attr('id') + "' id='" + $(this).attr('id') + "'/>");
         $(this).find('input').focus();
+        $(this).find('input').blur(function (e) {
+            if ($(this).parent().parent().attr('class') == 'add')
+                return;
+            if (val != $(this).val()) {
+                var a = $(this).parent().parent().attr('id');
+                $(this).attr('map', commands.size);
+                commands.set(lmap++, "UPDATE " + $("select#update").val() + " SET " + $(this).attr('id') + "='" + $(this).val() + "' WHERE id=" + $(this).parent().parent().attr('id') + "; ")
+                $(this).attr('readonly', true).removeAttr("id");
+            }
+            else {
+                $(this).parent().html($(this).val());
+            }
+        });
     });
 });
 
@@ -174,7 +146,6 @@ function onAjaxSuccess(data) {
         }
         $("#" + data[i].id + "").append("<th><img src='/Content/img/minus.png' class='delete'/></th>");
     }
-    $("#confirm").attr('type', 'submit');
     $("#add").append("<img src='/Content/img/plus.png' id='plus'>");
     $("#add").css('cursor', ' pointer');
     $(".delete").css('cursor', ' pointer');

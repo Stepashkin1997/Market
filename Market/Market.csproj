@@ -205,7 +205,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Base.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Market.sql" />
     <Content Include="Models\Base.edmx.diagram">
       <DependentUpon>Base.edmx</DependentUpon>
     </Content>
