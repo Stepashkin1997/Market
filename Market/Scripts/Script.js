@@ -64,7 +64,7 @@ $(document).ready(function () {
         });
         if (b)
             return;
-        var com;
+        var com="";
         commands.forEach(function (value) {
             com += value;
         });
